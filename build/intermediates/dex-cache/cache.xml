@@ -2,6 +2,20 @@
 <items version="2" >
 
     <item
+        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/classes-701a436aa7452076f983fc851203b6551de25e55.jar" />
+    </item>
+    <item
+        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/Spaceflight/andEnginePhysicsBox2DExtension/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="153babbffdcf1423907244504d84f0cd11ab8906">
+        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/classes-b5b053324c81b0ccc75190181daae1553f399ce4.jar" />
+    </item>
+    <item
         jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/jars/classes.jar"
         jumboMode="false"
         revision="21.1.0"
@@ -9,25 +23,11 @@
         <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/classes-e546badf08b2a82ab0bd68748e41cdf53c0c170d.jar" />
     </item>
     <item
-        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/jars/libs/internal_impl-21.0.2.jar"
+        jar="/Users/carstendrosser/.gradle/caches/modules-2/files-2.1/org.jbundle.util.osgi.wrapped/org.jbundle.util.osgi.wrapped.org.apache.http.client/4.1.2/98c86e42679fe7ac066f6c242e0d14f0bce0bb7c/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2.jar"
         jumboMode="false"
         revision="21.1.0"
-        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-eb9ddbdbb50243147f716fdbb03db331a7f739e4.jar" />
-    </item>
-    <item
-        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/Spaceflight/andEngine/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="858c91b1da47e26fceadf83f3cce057901766b0e">
-        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/classes-dd9226798fa6789e332aa3c8c51829a6ba81fb68.jar" />
-    </item>
-    <item
-        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/Spaceflight/andEnginePhysicsBox2DExtension/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="21.1.0"
-        sha1="462c22301a48489dfaad6543dbd4db291d59bd15">
-        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/classes-b5b053324c81b0ccc75190181daae1553f399ce4.jar" />
+        sha1="98c86e42679fe7ac066f6c242e0d14f0bce0bb7c">
+        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2-88c3001e8316d07bba59a88510ba75c2e265a9f3.jar" />
     </item>
     <item
         jar="/Users/carstendrosser/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
@@ -37,18 +37,18 @@
         <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.2-4278955999b46b5a6d6594849b31cf189a4e3774.jar" />
     </item>
     <item
-        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/jars/classes.jar"
+        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/Spaceflight/andEngine/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="21.1.0"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/classes-701a436aa7452076f983fc851203b6551de25e55.jar" />
+        sha1="68eef30de4bff82b6db41767b9f73e43a9ccf437">
+        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/classes-dd9226798fa6789e332aa3c8c51829a6ba81fb68.jar" />
     </item>
     <item
-        jar="/Users/carstendrosser/.gradle/caches/modules-2/files-2.1/org.jbundle.util.osgi.wrapped/org.jbundle.util.osgi.wrapped.org.apache.http.client/4.1.2/98c86e42679fe7ac066f6c242e0d14f0bce0bb7c/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2.jar"
+        jar="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/jars/libs/internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.0"
-        sha1="98c86e42679fe7ac066f6c242e0d14f0bce0bb7c">
-        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2-88c3001e8316d07bba59a88510ba75c2e265a9f3.jar" />
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="/Users/carstendrosser/Documents/AndroidStudioProjects/Spaceflight/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-eb9ddbdbb50243147f716fdbb03db331a7f739e4.jar" />
     </item>
 
 </items>

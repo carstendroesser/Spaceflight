@@ -9,7 +9,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.Scene;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-import static com.carstendroesser.spaceflight.managers.SceneManager.*;
+import static com.carstendroesser.spaceflight.managers.SceneManager.SceneType;
 
 /**
  * Created by carstendrosser on 16.05.16.

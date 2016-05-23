@@ -1,7 +1,6 @@
 package com.carstendroesser.spaceflight.activities;
 
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 
 import com.carstendroesser.spaceflight.managers.ResourceManager;
 import com.carstendroesser.spaceflight.managers.SceneManager;

@@ -19,8 +19,11 @@ public class ResourceManager {
     private BitmapTextureAtlas mAutoParallaxBackgroundTexture;
     public ITextureRegion mParallaxBackground;
 
-    private BitmapTextureAtlas mBitmapTextureAtlas;
-    public TiledTextureRegion mSpaceshipTextureRegion;
+    private BitmapTextureAtlas mTextureAtlasSpaceship;
+    public TiledTextureRegion mTextureRegionSpaceship;
+
+    private BitmapTextureAtlas mTextureAtlasEnemy;
+    public TiledTextureRegion mTextureRegionEnemy;
 
     private ResourceManager() {
     }
@@ -71,8 +74,11 @@ public class ResourceManager {
         mAutoParallaxBackgroundTexture = null;
         mParallaxBackground = null;
 
-        mBitmapTextureAtlas.unload();
-        mSpaceshipTextureRegion = null;
+        mTextureAtlasSpaceship.unload();
+        mTextureRegionSpaceship = null;
+
+        mTextureAtlasEnemy.unload();
+        mTextureRegionEnemy = null;
     }
 
     private void loadGamePlayingSceneResources() {
@@ -82,9 +88,13 @@ public class ResourceManager {
         mParallaxBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mAutoParallaxBackgroundTexture, mActivity, "background.png", 0, 150);
         mAutoParallaxBackgroundTexture.load();
 
-        mBitmapTextureAtlas = new BitmapTextureAtlas(mActivity.getTextureManager(), 128, 512, TextureOptions.BILINEAR);
-        mSpaceshipTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTextureAtlas, mActivity, "spaceship.png", 0, 0, 1, 1);
-        mBitmapTextureAtlas.load();
+        mTextureAtlasSpaceship = new BitmapTextureAtlas(mActivity.getTextureManager(), 128, 512, TextureOptions.BILINEAR);
+        mTextureRegionSpaceship = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mTextureAtlasSpaceship, mActivity, "spaceship.png", 0, 0, 1, 1);
+        mTextureAtlasSpaceship.load();
+
+        mTextureAtlasEnemy = new BitmapTextureAtlas(mActivity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+        mTextureRegionEnemy = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mTextureAtlasEnemy, mActivity, "enemy.png", 0, 0, 1, 1);
+        mTextureAtlasEnemy.load();
     }
 
 }

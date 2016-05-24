@@ -1,11 +1,19 @@
 package com.carstendroesser.spaceflight.scenes;
 
+import com.carstendroesser.spaceflight.managers.ResourceManager;
+
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.IEntityModifier;
+import org.andengine.entity.modifier.MoveXModifier;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.AutoParallaxBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.util.modifier.IModifier;
 
 import static com.carstendroesser.spaceflight.managers.SceneManager.SceneType;
 import static org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
@@ -17,14 +25,18 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
 
     private AutoParallaxBackground mParallaxBackground;
     private Sprite mSpaceship;
+    private int mTimerCounter = 0;
+    private int mGap = 0;
 
     private static final float TOUCH_POSITION_DELTA = 100;
+    private static final int ENEMY_GAP_BETWEEN_WAVES = 2;
+    private static final int ENEMIES_PER_WAVE = 4;
 
     @Override
     public void create() {
         mEngine.registerUpdateHandler(new FPSLogger());
 
-        mParallaxBackground = new AutoParallaxBackground(0, 0, 0, 40);
+        mParallaxBackground = new AutoParallaxBackground(0, 0, 0, 10);
         mParallaxBackground.attachParallaxEntity(
                 new ParallaxEntity(
                         -5.0f,
@@ -35,14 +47,31 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
         setBackground(mParallaxBackground);
 
         mSpaceship = new Sprite(
-                SCREEN_WIDTH / 2 - mResourceManager.mSpaceshipTextureRegion.getWidth() / 2,
-                SCREEN_HEIGHT / 2 - mResourceManager.mSpaceshipTextureRegion.getHeight() / 2,
-                mResourceManager.mSpaceshipTextureRegion,
+                SCREEN_WIDTH / 2 - mResourceManager.mTextureRegionSpaceship.getWidth() / 2,
+                SCREEN_HEIGHT / 2 - mResourceManager.mTextureRegionSpaceship.getHeight() / 2,
+                mResourceManager.mTextureRegionSpaceship,
                 mVertexBufferObjectManager);
         mSpaceship.setZIndex(10);
         attachChild(mSpaceship);
 
         setOnSceneTouchListener(this);
+
+        registerUpdateHandler(new TimerHandler(0.8f, true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                if (mGap > 0) {
+                    mGap--;
+                    return;
+                }
+
+                mTimerCounter++;
+                if (mTimerCounter % ENEMIES_PER_WAVE == 0) {
+                    mGap = ENEMY_GAP_BETWEEN_WAVES;
+                }
+
+                spawnEnemy();
+            }
+        }));
     }
 
     @Override
@@ -59,7 +88,6 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
     public void disposeScene() {
 
     }
-
 
     @Override
     public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
@@ -92,6 +120,42 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
         }
 
         object.setPosition(positionX, positionY);
+    }
+
+    private void spawnEnemy() {
+        Sprite enemy = new Sprite(
+                0,
+                0,
+                mResourceManager.mTextureRegionEnemy,
+                mVertexBufferObjectManager);
+        enemy.setZIndex(9);
+
+        float x = SCREEN_WIDTH;
+        float y = (float) (Math.random() * (SCREEN_HEIGHT - enemy.getHeight()));
+
+        enemy.setPosition(x, y);
+
+        MoveXModifier moveXModifier = new MoveXModifier(5, enemy.getX(), -enemy.getWidth());
+        moveXModifier.addModifierListener(new IEntityModifier.IEntityModifierListener() {
+            @Override
+            public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+                // empty
+            }
+
+            @Override
+            public void onModifierFinished(IModifier<IEntity> pModifier, final IEntity pItem) {
+                ResourceManager.getInstance().getActivity().getEngine().runOnUpdateThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        detachChild(pItem);
+                    }
+                });
+            }
+        });
+
+        enemy.registerEntityModifier(moveXModifier);
+
+        attachChild(enemy);
     }
 
 }

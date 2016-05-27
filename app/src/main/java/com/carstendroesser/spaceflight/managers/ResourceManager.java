@@ -25,6 +25,9 @@ public class ResourceManager {
     private BitmapTextureAtlas mTextureAtlasEnemy;
     public TiledTextureRegion mTextureRegionEnemy;
 
+    private BitmapTextureAtlas mTextureAtlasExplosion;
+    public TiledTextureRegion mTextureRegionExplosion;
+
     private ResourceManager() {
     }
 
@@ -79,6 +82,9 @@ public class ResourceManager {
 
         mTextureAtlasEnemy.unload();
         mTextureRegionEnemy = null;
+
+        mTextureAtlasExplosion.unload();
+        mTextureRegionExplosion = null;
     }
 
     private void loadGamePlayingSceneResources() {
@@ -95,6 +101,10 @@ public class ResourceManager {
         mTextureAtlasEnemy = new BitmapTextureAtlas(mActivity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
         mTextureRegionEnemy = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mTextureAtlasEnemy, mActivity, "enemy.png", 0, 0, 1, 1);
         mTextureAtlasEnemy.load();
+
+        mTextureAtlasExplosion = new BitmapTextureAtlas(mActivity.getTextureManager(), 512, 128, TextureOptions.BILINEAR);
+        mTextureRegionExplosion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mTextureAtlasExplosion, mActivity, "explosion.png", 0, 0, 7, 1);
+        mTextureAtlasExplosion.load();
     }
 
 }

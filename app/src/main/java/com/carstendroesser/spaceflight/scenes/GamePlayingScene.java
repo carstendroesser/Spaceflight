@@ -2,6 +2,7 @@ package com.carstendroesser.spaceflight.scenes;
 
 import com.carstendroesser.spaceflight.managers.ResourceManager;
 
+import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
@@ -15,6 +16,8 @@ import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.modifier.IModifier;
 
+import java.util.ArrayList;
+
 import static com.carstendroesser.spaceflight.managers.SceneManager.SceneType;
 import static org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 
@@ -27,6 +30,9 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
     private Sprite mSpaceship;
     private int mTimerCounter = 0;
     private int mGap = 0;
+    private ArrayList<Sprite> mEnemies;
+    private boolean mInputEnabled;
+
 
     private static final float TOUCH_POSITION_DELTA = 100;
     private static final int ENEMY_GAP_BETWEEN_WAVES = 2;
@@ -35,6 +41,10 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
     @Override
     public void create() {
         mEngine.registerUpdateHandler(new FPSLogger());
+
+        mEnemies = new ArrayList<Sprite>();
+
+        mInputEnabled = true;
 
         mParallaxBackground = new AutoParallaxBackground(0, 0, 0, 10);
         mParallaxBackground.attachParallaxEntity(
@@ -72,6 +82,18 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
                 spawnEnemy();
             }
         }));
+
+        registerUpdateHandler(new IUpdateHandler() {
+            @Override
+            public void onUpdate(float pSecondsElapsed) {
+                checkCollisions();
+            }
+
+            @Override
+            public void reset() {
+
+            }
+        });
     }
 
     @Override
@@ -91,7 +113,9 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
 
     @Override
     public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-        handleMove(pScene, pSceneTouchEvent);
+        if (mInputEnabled) {
+            handleMove(pScene, pSceneTouchEvent);
+        }
         return false;
     }
 
@@ -130,6 +154,8 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
                 mVertexBufferObjectManager);
         enemy.setZIndex(9);
 
+        mEnemies.add(enemy);
+
         float x = SCREEN_WIDTH;
         float y = (float) (Math.random() * (SCREEN_HEIGHT - enemy.getHeight()));
 
@@ -147,6 +173,7 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
                 ResourceManager.getInstance().getActivity().getEngine().runOnUpdateThread(new Runnable() {
                     @Override
                     public void run() {
+                        mEnemies.remove(pItem);
                         detachChild(pItem);
                     }
                 });
@@ -156,6 +183,26 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
         enemy.registerEntityModifier(moveXModifier);
 
         attachChild(enemy);
+    }
+
+    private void checkCollisions() {
+        for (Sprite enemy : mEnemies) {
+            if (mSpaceship.collidesWith(enemy)) {
+                onSpaceShipCollision(enemy);
+            }
+        }
+    }
+
+    private void onSpaceShipCollision(final Sprite pEnemy) {
+        ResourceManager.getInstance().getActivity().getEngine().runOnUpdateThread(new Runnable() {
+            @Override
+            public void run() {
+                pEnemy.clearEntityModifiers();
+                mEnemies.remove(pEnemy);
+                detachChild(pEnemy);
+                mInputEnabled = false;
+            }
+        });
     }
 
 }

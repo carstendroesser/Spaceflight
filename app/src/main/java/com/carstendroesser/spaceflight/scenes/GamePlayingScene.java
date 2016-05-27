@@ -11,6 +11,7 @@ import org.andengine.entity.modifier.MoveXModifier;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.AutoParallaxBackground;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
@@ -32,7 +33,8 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
     private int mGap = 0;
     private ArrayList<Sprite> mEnemies;
     private boolean mInputEnabled;
-
+    private boolean mCollisionEnabled;
+    private AnimatedSprite mExplosion;
 
     private static final float TOUCH_POSITION_DELTA = 100;
     private static final int ENEMY_GAP_BETWEEN_WAVES = 2;
@@ -45,6 +47,7 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
         mEnemies = new ArrayList<Sprite>();
 
         mInputEnabled = true;
+        mCollisionEnabled = true;
 
         mParallaxBackground = new AutoParallaxBackground(0, 0, 0, 10);
         mParallaxBackground.attachParallaxEntity(
@@ -94,6 +97,8 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
 
             }
         });
+
+        mExplosion = new AnimatedSprite(0, 0, mResourceManager.mTextureRegionExplosion, mVertexBufferObjectManager);
     }
 
     @Override
@@ -186,6 +191,9 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
     }
 
     private void checkCollisions() {
+        if (!mCollisionEnabled) {
+            return;
+        }
         for (Sprite enemy : mEnemies) {
             if (mSpaceship.collidesWith(enemy)) {
                 onSpaceShipCollision(enemy);
@@ -197,10 +205,46 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
         ResourceManager.getInstance().getActivity().getEngine().runOnUpdateThread(new Runnable() {
             @Override
             public void run() {
-                pEnemy.clearEntityModifiers();
-                mEnemies.remove(pEnemy);
-                detachChild(pEnemy);
-                mInputEnabled = false;
+                //pEnemy.clearEntityModifiers();
+                mCollisionEnabled = false;
+                explode();
+            }
+        });
+    }
+
+    private void explode() {
+        mInputEnabled = false;
+
+        float[] centerCoordinates = mSpaceship.getSceneCenterCoordinates();
+        mExplosion.setPosition(centerCoordinates[0] - mExplosion.getWidth() / 2, centerCoordinates[1] - mExplosion.getHeight() / 2);
+
+        detachChild(mSpaceship);
+        attachChild(mExplosion);
+
+        mExplosion.animate(100, false, new AnimatedSprite.IAnimationListener() {
+            @Override
+            public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
+
+            }
+
+            @Override
+            public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
+
+            }
+
+            @Override
+            public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
+
+            }
+
+            @Override
+            public void onAnimationFinished(final AnimatedSprite pAnimatedSprite) {
+                ResourceManager.getInstance().getActivity().getEngine().runOnUpdateThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        detachChild(pAnimatedSprite);
+                    }
+                });
             }
         });
     }

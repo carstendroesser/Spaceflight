@@ -33,11 +33,15 @@ public class MainActivity extends SimpleBaseGameActivity {
 
     @Override
     public EngineOptions onCreateEngineOptions() {
-        return new EngineOptions(
+        EngineOptions engineOptions = new EngineOptions(
                 true,
                 ScreenOrientation.LANDSCAPE_FIXED,
                 new RatioResolutionPolicy(mSceneWidth, mSceneHeight),
                 mCamera);
+
+        engineOptions.getAudioOptions().setNeedsSound(true).setNeedsMusic(true);
+
+        return engineOptions;
     }
 
     @Override
@@ -51,5 +55,21 @@ public class MainActivity extends SimpleBaseGameActivity {
     protected Scene onCreateScene() {
         SceneManager.getInstance().setScene(SceneType.GAME_PLAYING);
         return new GamePlayingScene();
+    }
+
+    @Override
+    protected void onPause() {
+        if (mResourceManager != null && mResourceManager.mMusic != null && mResourceManager.mMusic.isPlaying()) {
+            mResourceManager.mMusic.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected synchronized void onResume() {
+        if (mResourceManager != null && mResourceManager.mMusic != null && !mResourceManager.mMusic.isPlaying()) {
+            mResourceManager.mMusic.resume();
+        }
+        super.onResume();
     }
 }

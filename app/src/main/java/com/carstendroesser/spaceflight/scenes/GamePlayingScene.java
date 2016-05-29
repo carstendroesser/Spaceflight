@@ -99,6 +99,10 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
         });
 
         mExplosion = new AnimatedSprite(0, 0, mResourceManager.mTextureRegionExplosion, mVertexBufferObjectManager);
+
+        if (!mResourceManager.mMusic.isPlaying()) {
+            mResourceManager.mMusic.play();
+        }
     }
 
     @Override
@@ -220,6 +224,8 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
 
         detachChild(mSpaceship);
         attachChild(mExplosion);
+
+        mResourceManager.mSoundExplosion.play();
 
         mExplosion.animate(100, false, new AnimatedSprite.IAnimationListener() {
             @Override

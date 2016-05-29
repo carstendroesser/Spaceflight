@@ -2,11 +2,17 @@ package com.carstendroesser.spaceflight.managers;
 
 import com.carstendroesser.spaceflight.activities.MainActivity;
 
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+
+import java.io.IOException;
 
 /**
  * Created by carstendrosser on 16.05.16.
@@ -27,6 +33,9 @@ public class ResourceManager {
 
     private BitmapTextureAtlas mTextureAtlasExplosion;
     public TiledTextureRegion mTextureRegionExplosion;
+
+    public Sound mSoundExplosion;
+    public Music mMusic;
 
     private ResourceManager() {
     }
@@ -85,6 +94,13 @@ public class ResourceManager {
 
         mTextureAtlasExplosion.unload();
         mTextureRegionExplosion = null;
+
+        mSoundExplosion.release();
+        mSoundExplosion = null;
+
+        mMusic.stop();
+        mMusic.release();
+        mMusic = null;
     }
 
     private void loadGamePlayingSceneResources() {
@@ -105,6 +121,20 @@ public class ResourceManager {
         mTextureAtlasExplosion = new BitmapTextureAtlas(mActivity.getTextureManager(), 512, 128, TextureOptions.BILINEAR);
         mTextureRegionExplosion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mTextureAtlasExplosion, mActivity, "explosion.png", 0, 0, 7, 1);
         mTextureAtlasExplosion.load();
+
+        SoundFactory.setAssetBasePath("mfx/");
+        try {
+            mSoundExplosion = SoundFactory.createSoundFromAsset(mActivity.getEngine().getSoundManager(), mActivity, "explosion.ogg");
+        } catch (final IOException e) {
+        }
+
+        MusicFactory.setAssetBasePath("mfx/");
+        try {
+            mMusic = MusicFactory.createMusicFromAsset(mActivity.getEngine().getMusicManager(), mActivity, "gamemusic.ogg");
+            mMusic.setLooping(true);
+        } catch (final IOException e) {
+        }
+
     }
 
 }

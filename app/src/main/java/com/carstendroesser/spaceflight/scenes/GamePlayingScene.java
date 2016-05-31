@@ -163,6 +163,18 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
                 mVertexBufferObjectManager);
         enemy.setZIndex(9);
 
+
+        AnimatedSprite exhaustSprite = new AnimatedSprite(
+                enemy.getWidth() - 5,
+                enemy.getHeight() / 2 - mResourceManager.mTextureRegionExhaust.getHeight() / 2,
+                mResourceManager.mTextureRegionExhaust,
+                mVertexBufferObjectManager);
+        exhaustSprite.setZIndex(10);
+        exhaustSprite.animate(150, true);
+
+        enemy.attachChild(exhaustSprite);
+
+
         mEnemies.add(enemy);
 
         float x = SCREEN_WIDTH;
@@ -170,7 +182,7 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
 
         enemy.setPosition(x, y);
 
-        MoveXModifier moveXModifier = new MoveXModifier(5, enemy.getX(), -enemy.getWidth());
+        MoveXModifier moveXModifier = new MoveXModifier(5, enemy.getX(), -enemy.getWidth()*2);
         moveXModifier.addModifierListener(new IEntityModifier.IEntityModifierListener() {
             @Override
             public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {

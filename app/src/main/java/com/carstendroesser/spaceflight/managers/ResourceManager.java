@@ -34,6 +34,9 @@ public class ResourceManager {
     private BitmapTextureAtlas mTextureAtlasExplosion;
     public TiledTextureRegion mTextureRegionExplosion;
 
+    private BitmapTextureAtlas mTextureAtlasExhaust;
+    public TiledTextureRegion mTextureRegionExhaust;
+
     public Sound mSoundExplosion;
     public Music mMusic;
 
@@ -95,6 +98,9 @@ public class ResourceManager {
         mTextureAtlasExplosion.unload();
         mTextureRegionExplosion = null;
 
+        mTextureAtlasExhaust.unload();
+        mTextureRegionExhaust = null;
+
         mSoundExplosion.release();
         mSoundExplosion = null;
 
@@ -121,6 +127,10 @@ public class ResourceManager {
         mTextureAtlasExplosion = new BitmapTextureAtlas(mActivity.getTextureManager(), 512, 128, TextureOptions.BILINEAR);
         mTextureRegionExplosion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mTextureAtlasExplosion, mActivity, "explosion.png", 0, 0, 7, 1);
         mTextureAtlasExplosion.load();
+
+        mTextureAtlasExhaust = new BitmapTextureAtlas(mActivity.getTextureManager(), 512, 128, TextureOptions.BILINEAR);
+        mTextureRegionExhaust = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mTextureAtlasExhaust, mActivity, "exhaust.png", 0, 0, 2, 1);
+        mTextureAtlasExhaust.load();
 
         SoundFactory.setAssetBasePath("mfx/");
         try {

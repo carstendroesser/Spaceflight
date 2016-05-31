@@ -182,7 +182,7 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
 
         enemy.setPosition(x, y);
 
-        MoveXModifier moveXModifier = new MoveXModifier(5, enemy.getX(), -enemy.getWidth());
+        MoveXModifier moveXModifier = new MoveXModifier(5, enemy.getX(), -enemy.getWidth()*2);
         moveXModifier.addModifierListener(new IEntityModifier.IEntityModifierListener() {
             @Override
             public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {

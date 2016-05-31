@@ -163,6 +163,18 @@ public class GamePlayingScene extends BaseScene implements IOnSceneTouchListener
                 mVertexBufferObjectManager);
         enemy.setZIndex(9);
 
+
+        AnimatedSprite exhaustSprite = new AnimatedSprite(
+                enemy.getWidth() - 5,
+                enemy.getHeight() / 2 - mResourceManager.mTextureRegionExhaust.getHeight() / 2,
+                mResourceManager.mTextureRegionExhaust,
+                mVertexBufferObjectManager);
+        exhaustSprite.setZIndex(10);
+        exhaustSprite.animate(150, true);
+
+        enemy.attachChild(exhaustSprite);
+
+
         mEnemies.add(enemy);
 
         float x = SCREEN_WIDTH;

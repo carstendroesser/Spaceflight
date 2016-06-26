@@ -19,8 +19,16 @@ import java.io.IOException;
  */
 public class ResourceManager {
 
+    // MEMBERS
+
+    // it is a singleton...
     private static final ResourceManager instance = new ResourceManager();
+
+    // reference to the activity
     private MainActivity mActivity;
+
+
+    // TEXTURES
 
     private BitmapTextureAtlas mAutoParallaxBackgroundTexture;
     public ITextureRegion mParallaxBackground;
@@ -37,24 +45,50 @@ public class ResourceManager {
     private BitmapTextureAtlas mTextureAtlasExhaust;
     public TiledTextureRegion mTextureRegionExhaust;
 
+    // SOUNDS
+
     public Sound mSoundExplosion;
     public Music mMusic;
 
+    // PRIVATE CONSTRUCTOR
+
     private ResourceManager() {
+        // empty
     }
 
+    /**
+     * Returns the singleton instance.
+     *
+     * @return ResourceManager the singleton
+     */
     public static ResourceManager getInstance() {
         return instance;
     }
 
+    /**
+     * Sets reference to the activity the game is displayed in. Used
+     * as context.
+     *
+     * @param pMainActivity the Activity
+     */
     public void setActivity(MainActivity pMainActivity) {
         mActivity = pMainActivity;
     }
 
+    /**
+     * Get the reference to the activity.
+     *
+     * @return Activity the activity the game is displayed in
+     */
     public MainActivity getActivity() {
         return mActivity;
     }
 
+    /**
+     * Loads all resources for a given scenetype.
+     *
+     * @param pSceneType the type of scene to load resources for
+     */
     public void loadResources(SceneManager.SceneType pSceneType) {
         switch (pSceneType) {
             case MENU:
@@ -69,6 +103,11 @@ public class ResourceManager {
         }
     }
 
+    /**
+     * Unloads all resources for a given scenetype.
+     *
+     * @param pSceneType the type of scene to unload the resources for
+     */
     public void unloadResources(SceneManager.SceneType pSceneType) {
         mAutoParallaxBackgroundTexture.unload();
         switch (pSceneType) {
@@ -84,6 +123,9 @@ public class ResourceManager {
         }
     }
 
+    /**
+     * Unloads all resources for the GamePlayingScene.
+     */
     private void unloadGamePlayingSceneResources() {
         mAutoParallaxBackgroundTexture.unload();
         mAutoParallaxBackgroundTexture = null;
@@ -109,6 +151,9 @@ public class ResourceManager {
         mMusic = null;
     }
 
+    /**
+     * Loads all GamePlayingScene-resources.
+     */
     private void loadGamePlayingSceneResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 

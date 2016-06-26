@@ -16,6 +16,7 @@ import static com.carstendroesser.spaceflight.managers.SceneManager.SceneType;
  */
 public abstract class BaseScene extends Scene {
 
+    // the scene needs to know about the screenresolution
     protected final int SCREEN_WIDTH = MainActivity.mSceneWidth;
     protected final int SCREEN_HEIGHT = MainActivity.mSceneHeight;
 
@@ -26,6 +27,9 @@ public abstract class BaseScene extends Scene {
     protected SceneManager mSceneManager;
     protected ResourceManager mResourceManager;
 
+    /**
+     * Set ups everything neccessary for a scene.
+     */
     public BaseScene() {
         mResourceManager = ResourceManager.getInstance();
         mActivity = mResourceManager.getActivity();
